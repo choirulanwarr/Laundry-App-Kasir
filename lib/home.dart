@@ -182,6 +182,7 @@ class Home extends StatelessWidget {
   }
 }
 
+//costume background
 class ClippingClass extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
