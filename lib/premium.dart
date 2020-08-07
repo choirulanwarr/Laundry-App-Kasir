@@ -99,7 +99,7 @@ class Premium extends StatelessWidget {
                   children: <Widget>[
                     _customCard(imageUrl: "kaos.png", item: "Kaos", count: 5),
                     _customCard(
-                        imageUrl: "kemeja.png ", item: "Kemeja", count: 5),
+                        imageUrl: "kemeja.png", item: "Kemeja", count: 5),
                     _customCard(imageUrl: "jaket.png", item: "Jaket", count: 5),
                     _customCard(
                         imageUrl: "celana.png", item: "Celana", count: 5),
