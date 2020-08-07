@@ -71,6 +71,9 @@ class Home extends StatelessWidget {
                       item: "Laundry Premium",
                       duration: "Masukan data sesuai jenis"),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/Kiloan');
@@ -80,6 +83,9 @@ class Home extends StatelessWidget {
                       item: "Laundry Kiloan",
                       duration: "Masukan data sesuai per-kilo"),
                 ),
+                SizedBox(
+                  height: 20,
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/Transaksi');
@@ -88,6 +94,9 @@ class Home extends StatelessWidget {
                       imageUrl: "mdi_assignment.png",
                       item: "Data Transaksi",
                       duration: "Lihat pemasukan laundry"),
+                ),
+                SizedBox(
+                  height: 20,
                 ),
                 GestureDetector(
                   onTap: () {

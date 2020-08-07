@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Kiloan extends StatelessWidget {
   @override
@@ -72,6 +73,116 @@ class Kiloan extends StatelessWidget {
                   ),
                 ],
               )),
+          Positioned(
+            left: 30,
+            top: 160,
+            right: 30,
+            height: null,
+            width: null,
+            child: Align(
+              alignment: Alignment.center,
+              child: ClipRRect(
+                child: Image.asset("assets/kiloan_images/kiloan.png"),
+              ),
+            ),
+          ),
+          Positioned(
+              left: 30,
+              top: 290,
+              right: 30,
+              height: null,
+              width: null,
+              child: MyCustomForm()),
+        ],
+      ),
+    );
+  }
+}
+
+// Create a Form widget.
+class MyCustomForm extends StatefulWidget {
+  @override
+  MyCustomFormState createState() {
+    return MyCustomFormState();
+  }
+}
+
+// Create a corresponding State class.
+// This class holds data related to the form.
+class MyCustomFormState extends State<MyCustomForm> {
+  // Create a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+  //
+  // Note: This is a GlobalKey<FormState>,
+  // not a GlobalKey<MyCustomFormState>.
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  Widget build(BuildContext context) {
+    // Build a Form widget using the _formKey created above.
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          TextFormField(
+            decoration: new InputDecoration(
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                ),
+                filled: true,
+                hintStyle: new TextStyle(color: Colors.grey[800]),
+                hintText: "Nama Pelanggan",
+                fillColor: Colors.white70),
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Masukan Nama Pelanggan';
+              }
+              return null;
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            keyboardType: TextInputType.number,
+            decoration: new InputDecoration(
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                ),
+                filled: true,
+                hintStyle: new TextStyle(color: Colors.grey[800]),
+                hintText: "Berat Pakaian (kg)",
+                fillColor: Colors.white70),
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Masukan Berat Pakaian';
+              }
+              return null;
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          TextFormField(
+            decoration: new InputDecoration(
+                border: new OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(
+                    const Radius.circular(10.0),
+                  ),
+                ),
+                filled: false,
+                hintStyle: new TextStyle(color: Colors.grey[800]),
+                hintText: "Rp. 0",
+                fillColor: Colors.white70),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
@@ -79,7 +190,15 @@ class Kiloan extends StatelessWidget {
               width: double.infinity,
               padding: EdgeInsets.all(12.0),
               child: FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Validate returns true if the form is valid, or false
+                  // otherwise.
+                  if (_formKey.currentState.validate()) {
+                    // If the form is valid, display a Snackbar.
+                    Scaffold.of(context).showSnackBar(
+                        SnackBar(content: Text('Processing Data')));
+                  }
+                },
                 child: Text(
                   "Simpan Data Laundry",
                   style: TextStyle(
@@ -92,7 +211,7 @@ class Kiloan extends StatelessWidget {
                     borderRadius: BorderRadius.circular(41)),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

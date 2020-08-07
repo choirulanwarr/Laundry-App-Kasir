@@ -72,27 +72,6 @@ class Tentang extends StatelessWidget {
                   ),
                 ],
               )),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 80,
-              width: double.infinity,
-              padding: EdgeInsets.all(12.0),
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(
-                  "Simpan Data Laundry",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22),
-                ),
-                color: Colors.blue,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(41)),
-              ),
-            ),
-          )
         ],
       ),
     );
