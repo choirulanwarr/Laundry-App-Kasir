@@ -1,4 +1,3 @@
-import 'package:laundry_app/details.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget {
@@ -34,7 +33,7 @@ class Home extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.asset("assets/home_images/user.png"),
+                    child: Image.asset("assets/home_images/icon_app.png"),
                   ),
                   Positioned(
                     top: 150,
@@ -64,74 +63,44 @@ class Home extends StatelessWidget {
             right: 20,
             child: Column(
               children: <Widget>[
-                GestureDetector(
+                new GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Detailes()));
+                    Navigator.pushNamed(context, '/Premium');
                   },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _customCard(
-                          imageUrl: "clean.png",
-                          item: "Laundry Premium",
-                          duration: "Masukan data sesuai jenis"),
-                    ],
-                  ),
+                  child: _customCard(
+                      imageUrl: "mdi_stars.png",
+                      item: "Laundry Premium",
+                      duration: "Masukan data sesuai jenis"),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                new GestureDetector(
+                  onDoubleTap: () {
+                    Navigator.pushNamed(context, '/Kiloan');
+                  },
+                  child: _customCard(
+                      imageUrl: "mdi_add_shopping_cart.png",
+                      item: "Laundry Kiloan",
+                      duration: "Masukan data sesuai per-kilo"),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Detailes()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _customCard(
-                          imageUrl: "clean.png",
-                          item: "Laundry Kiloan",
-                          duration: "Masukan data sesuai per-kilo"),
-                    ],
-                  ),
+                  child: _customCard(
+                      imageUrl: "mdi_assignment.png",
+                      item: "Data Transaksi",
+                      duration: "Lihat pemasukan laundry"),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 GestureDetector(
-                  // onTap: () {
-                  //   Navigator.push(context,
-                  //       MaterialPageRoute(builder: (context) => Detailes()));
-                  // },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _customCard(
-                          imageUrl: "clean.png",
-                          item: "Data Transaksi",
-                          duration: "Lihat pemasukan laundry"),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Detailes()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      _customCard(
-                          imageUrl: "clean.png",
-                          item: "Tentang Aplikasi",
-                          duration: "Mengenai aplikasi ini dibuat"),
-                    ],
-                  ),
+                  child: _customCard(
+                      imageUrl: "mdi_info.png",
+                      item: "Tentang Aplikasi",
+                      duration: "Mengenai aplikasi ini dibuat"),
                 ),
               ],
             ),

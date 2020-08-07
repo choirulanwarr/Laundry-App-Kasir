@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Detailes extends StatelessWidget {
+class Premium extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,7 +44,7 @@ class Detailes extends StatelessWidget {
                 children: <Widget>[
                   ClipRRect(
                     borderRadius: BorderRadius.circular(100),
-                    child: Image.asset("assets/home_images/user.png"),
+                    child: Image.asset("assets/home_images/icon_app.png"),
                   ),
                   Positioned(
                     top: 150,
@@ -97,26 +97,12 @@ class Detailes extends StatelessWidget {
                 child: GridView.count(
                   crossAxisCount: 2,
                   children: <Widget>[
+                    _customCard(imageUrl: "kaos.png", item: "Kaos", count: 5),
                     _customCard(
-                        imageUrl: "tshirt.png",
-                        item: "T-shirt",
-                        price: "\$0.50",
-                        count: 5),
+                        imageUrl: "kemeja.png ", item: "Kemeja", count: 5),
+                    _customCard(imageUrl: "jaket.png", item: "Jaket", count: 5),
                     _customCard(
-                        imageUrl: "shirt.png",
-                        item: "Shirt",
-                        price: "\$0.50",
-                        count: 5),
-                    _customCard(
-                        imageUrl: "blouse.png",
-                        item: "T-shirt",
-                        price: "\$0.50",
-                        count: 5),
-                    _customCard(
-                        imageUrl: "hoodie.png",
-                        item: "T-shirt",
-                        price: "\$0.50",
-                        count: 5),
+                        imageUrl: "celana.png", item: "Celana", count: 5),
                   ],
                 ),
               )),
@@ -192,7 +178,7 @@ class Detailes extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset("assets/page1/" + imageUrl),
+                  Image.asset("assets/premium_images/" + imageUrl),
                   Text(
                     item,
                     style: TextStyle(fontSize: 21),

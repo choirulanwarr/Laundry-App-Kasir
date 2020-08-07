@@ -51,21 +51,16 @@ flutter:
 
    # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/home_images/user.png
-   - assets/home_images/clean.png
-   - assets/home_images/dry.png
-   - assets/home_images/shoe.png
-   - assets/home_images/washing-machine.png
-
-   - assets/page1/tshirt.png
-   - assets/page1/blouse.png
-   - assets/page1/bottoms.png
-   - assets/page1/coat.png
-   - assets/page1/dress.png   
-   - assets/page1/tops.png   
-   - assets/page1/hoodie.png   
-   - assets/page1/shirt.png   
-   - assets/page1/suits.png   
+   - assets/home_images/icon_app.png  
+   - assets/home_images/mdi_add_shopping_cart.png  
+   - assets/home_images/mdi_assignment.png  
+   - assets/home_images/mdi_info.png  
+   - assets/home_images/mdi_stars.png 
+   - assets/kiloan_images/kiloan.png 
+   - assets/premium_images/jaket.png  
+   - assets/premium_images/kemeja.png  
+   - assets/premium_images/celana.png  
+   - assets/premium_images/kaos.png  
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
