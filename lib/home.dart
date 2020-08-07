@@ -24,9 +24,9 @@ class Home extends StatelessWidget {
             ),
           ),
           Positioned(
-              left: 40,
+              left: 30,
               top: 80,
-              right: 40,
+              right: 30,
               height: null,
               width: null,
               child: Row(
@@ -39,7 +39,7 @@ class Home extends StatelessWidget {
                   Positioned(
                     top: 150,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text("Aplikasi Kasir Laundry",
                             style: TextStyle(
@@ -101,10 +101,10 @@ class Home extends StatelessWidget {
                   height: 20,
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Detailes()));
-                  },
+                  // onTap: () {
+                  //   Navigator.push(context,
+                  //       MaterialPageRoute(builder: (context) => Detailes()));
+                  // },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
