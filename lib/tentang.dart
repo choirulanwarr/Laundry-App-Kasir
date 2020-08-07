@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Kiloan extends StatelessWidget {
+class Tentang extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

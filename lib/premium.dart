@@ -7,35 +7,19 @@ class Premium extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Container(
-            margin:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height / 2.7),
             width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30),
-                  topRight: Radius.circular(30),
-                ),
-                color: Colors.white),
-          ),
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * 4 / 7,
+            height: MediaQuery.of(context).size.height * 7 / 7,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
               ),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-              ),
             ),
           ),
           Positioned(
               left: 30,
-              top: 80,
+              top: 50,
               right: 30,
               height: null,
               width: null,
@@ -69,7 +53,7 @@ class Premium extends StatelessWidget {
                 ],
               )),
           Positioned(
-              top: 160,
+              top: 120,
               left: 20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -83,13 +67,13 @@ class Premium extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    "Categories",
+                    "Kembali",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ],
               )),
           Positioned(
-              top: 180,
+              top: 150,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Padding(
@@ -108,7 +92,7 @@ class Premium extends StatelessWidget {
               )),
           Positioned(
             left: 30,
-            top: 640,
+            top: 600,
             right: 30,
             height: null,
             width: null,
@@ -145,11 +129,11 @@ class Premium extends StatelessWidget {
                 child: Text(
                   "Simpan Data Laundry",
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                       fontSize: 22),
                 ),
-                color: Colors.blue,
+                color: Colors.white,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(41)),
               ),

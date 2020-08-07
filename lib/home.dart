@@ -9,10 +9,9 @@ class Home extends StatelessWidget {
         fit: StackFit.loose,
         children: <Widget>[
           ClipPath(
-            clipper: ClippingClass(),
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 3 / 7,
+              height: MediaQuery.of(context).size.height * 7 / 7,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -24,7 +23,7 @@ class Home extends StatelessWidget {
           ),
           Positioned(
               left: 30,
-              top: 80,
+              top: 50,
               right: 30,
               height: null,
               width: null,
@@ -59,11 +58,11 @@ class Home extends StatelessWidget {
               )),
           Positioned(
             left: 20,
-            top: 200,
+            top: 150,
             right: 20,
             child: Column(
               children: <Widget>[
-                new GestureDetector(
+                GestureDetector(
                   onTap: () {
                     Navigator.pushNamed(context, '/Premium');
                   },
@@ -72,11 +71,8 @@ class Home extends StatelessWidget {
                       item: "Laundry Premium",
                       duration: "Masukan data sesuai jenis"),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                new GestureDetector(
-                  onDoubleTap: () {
+                GestureDetector(
+                  onTap: () {
                     Navigator.pushNamed(context, '/Kiloan');
                   },
                   child: _customCard(
@@ -84,19 +80,19 @@ class Home extends StatelessWidget {
                       item: "Laundry Kiloan",
                       duration: "Masukan data sesuai per-kilo"),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/Transaksi');
+                  },
                   child: _customCard(
                       imageUrl: "mdi_assignment.png",
                       item: "Data Transaksi",
                       duration: "Lihat pemasukan laundry"),
                 ),
-                SizedBox(
-                  height: 20,
-                ),
                 GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/Tentang');
+                  },
                   child: _customCard(
                       imageUrl: "mdi_info.png",
                       item: "Tentang Aplikasi",
@@ -119,30 +115,37 @@ class Home extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         elevation: 20,
         child: Padding(
-          padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(0),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              SizedBox(
+                width: 40.0,
+              ),
               Image.asset("assets/home_images/" + imageUrl),
               SizedBox(
-                width: 20.0,
+                width: 40.0,
               ),
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(
-                  item,
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                Text(
-                  duration,
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.normal),
-                )
-              ]),
+              Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item,
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      duration,
+                      style: TextStyle(
+                          fontFamily: 'Montserrat',
+                          fontSize: 15.0,
+                          fontWeight: FontWeight.normal),
+                    )
+                  ]),
             ],
           ),
         ),

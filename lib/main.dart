@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:laundry_app/home.dart';
 import 'package:laundry_app/kiloan.dart';
 import 'package:laundry_app/premium.dart';
+import 'package:laundry_app/tentang.dart';
+import 'package:laundry_app/transaksi.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +20,8 @@ class MyApp extends StatelessWidget {
         '/': (BuildContext context) => Home(),
         '/Premium': (BuildContext context) => Premium(),
         '/Kiloan': (BuildContext context) => Kiloan(),
+        '/Transaksi': (BuildContext context) => Transaksi(),
+        '/Tentang': (BuildContext context) => Tentang(),
       },
     );
   }
