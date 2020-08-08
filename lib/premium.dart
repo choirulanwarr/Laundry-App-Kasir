@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
 class Premium extends StatefulWidget {
   @override
@@ -49,12 +48,12 @@ class _PremiumState extends State<Premium> {
     });
   }
 
-  FlutterMoneyFormatter fmf = FlutterMoneyFormatter(amount: 00);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
+        body: SingleChildScrollView(
+      child: Stack(
+        overflow: Overflow.visible,
         children: <Widget>[
           Container(
             width: double.infinity,
@@ -162,34 +161,47 @@ class _PremiumState extends State<Premium> {
                     ),
                     _totalText(_total_bayar),
                   ],
-                )
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  textAlign: TextAlign.center,
+                  decoration: new InputDecoration(
+                      border: new OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(10.0),
+                        ),
+                      ),
+                      filled: true,
+                      hintStyle:
+                          new TextStyle(color: Colors.grey[800], fontSize: 18),
+                      hintText: "Nama Pelanggan",
+                      fillColor: Colors.white70),
+                ),
+                SizedBox(height: 20),
+                Container(
+                  height: 80,
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10.0),
+                  child: FlatButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Simpan Data Laundry",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 22),
+                    ),
+                    color: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(41)),
+                  ),
+                ),
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 80,
-              width: double.infinity,
-              padding: EdgeInsets.all(12.0),
-              child: FlatButton(
-                onPressed: () {},
-                child: Text(
-                  "Simpan Data Laundry",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 22),
-                ),
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(41)),
-              ),
-            ),
-          )
         ],
       ),
-    );
+    ));
   }
 
   _customCard({String imageUrl, String item, String price, int count}) {

@@ -11,13 +11,26 @@ class Home extends StatelessWidget {
           ClipPath(
             child: Container(
               width: double.infinity,
-              height: MediaQuery.of(context).size.height * 7 / 7,
+              height: MediaQuery.of(context).size.height * 7 / 4,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
-                ),
+                color: Colors.white,
+              ),
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height / 1.45),
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(106),
+                bottomRight: Radius.circular(106),
+              ),
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.cyan[900], Colors.cyan[400]],
               ),
             ),
           ),
@@ -121,7 +134,9 @@ class Home extends StatelessWidget {
       width: 350,
       child: Card(
         color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+            side: BorderSide(width: 5, color: Colors.cyan[800])),
         elevation: 20,
         child: Padding(
           padding: EdgeInsets.all(0),

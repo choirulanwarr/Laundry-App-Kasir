@@ -1,6 +1,94 @@
 import 'package:flutter/material.dart';
 
-class Transaksi extends StatelessWidget {
+class Transaksi extends StatefulWidget {
+  @override
+  _TransaksiState createState() => _TransaksiState();
+}
+
+class _TransaksiState extends State<Transaksi> {
+  List<Transaksi> _employees;
+  String _titleProgress;
+
+  @override
+  void initState() {
+    super.initState();
+    _employees = [];
+    _getEmployees();
+  }
+
+  _showProgress(String message) {
+    setState(() {
+      _titleProgress = message;
+    });
+  }
+
+  _getEmployees() {
+    _showProgress('Loading Employees...');
+    Services.getEmployees().then((employees) {
+      setState(() {
+        _employees = employees;
+      });
+      _showProgress(widget.title); // Reset the title...
+      print("Length ${employees.length}");
+    });
+  }
+
+// Let's create a DataTable and show the employee list in it.
+  SingleChildScrollView _dataBody() {
+    // Both Vertical and Horozontal Scrollview for the DataTable to
+    // scroll both Vertical and Horizontal...
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
+          columns: [
+            DataColumn(
+              label: Text('ID'),
+            ),
+            DataColumn(
+              label: Text('FIRST NAME'),
+            ),
+            DataColumn(
+              label: Text('LAST NAME'),
+            ),
+            // Lets add one more column to show a delete button
+            DataColumn(
+              label: Text('DELETE'),
+            )
+          ],
+          rows: _employees
+              .map(
+                (employee) => DataRow(cells: [
+                  DataCell(
+                    Text(employee.id),
+                    // Add tap in the row and populate the
+                    // textfields with the corresponding values to update
+                  ),
+                  DataCell(
+                    Text(
+                      employee.firstName.toUpperCase(),
+                    ),
+                  ),
+                  DataCell(
+                    Text(
+                      employee.lastName.toUpperCase(),
+                    ),
+                  ),
+                  DataCell(IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      //_deleteEmployee(employee);
+                    },
+                  ))
+                ]),
+              )
+              .toList(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
