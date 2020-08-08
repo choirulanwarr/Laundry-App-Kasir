@@ -1,6 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_money_formatter/flutter_money_formatter.dart';
 
-class Premium extends StatelessWidget {
+class Premium extends StatefulWidget {
+  @override
+  _PremiumState createState() => _PremiumState();
+}
+
+class _PremiumState extends State<Premium> {
+  int _qty_1 = 0;
+  int _qty_2 = 0;
+  int _qty_3 = 0;
+  int _qty_4 = 0;
+  int _total_bayar = 0;
+
+  void add(String item) {
+    setState(() {
+      if (item == "Kaos") {
+        _qty_1++;
+      } else if (item == "Kemeja") {
+        _qty_2++;
+      } else if (item == "Jaket") {
+        _qty_3++;
+      } else if (item == "Celana") {
+        _qty_4++;
+      }
+    });
+  }
+
+  void remove(String item) {
+    setState(() {
+      if (item == "Kaos") {
+        _qty_1--;
+      } else if (item == "Kemeja") {
+        _qty_2--;
+      } else if (item == "Jaket") {
+        _qty_3--;
+      } else if (item == "Celana") {
+        _qty_4--;
+      }
+    });
+  }
+
+  void total() {
+    setState(() {
+      _total_bayar =
+          (_qty_1 * 2000) + (_qty_2 * 2000) + (_qty_3 * 2000) + (_qty_4 * 2000);
+      print(_total_bayar);
+    });
+  }
+
+  FlutterMoneyFormatter fmf = FlutterMoneyFormatter(amount: 00);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,19 +131,21 @@ class Premium extends StatelessWidget {
                 child: GridView.count(
                   crossAxisCount: 2,
                   children: <Widget>[
-                    _customCard(imageUrl: "kaos.png", item: "Kaos", count: 5),
                     _customCard(
-                        imageUrl: "kemeja.png", item: "Kemeja", count: 5),
-                    _customCard(imageUrl: "jaket.png", item: "Jaket", count: 5),
+                        imageUrl: "kaos.png", item: "Kaos", count: _qty_1),
                     _customCard(
-                        imageUrl: "celana.png", item: "Celana", count: 5),
+                        imageUrl: "kemeja.png", item: "Kemeja", count: _qty_2),
+                    _customCard(
+                        imageUrl: "jaket.png", item: "Jaket", count: _qty_3),
+                    _customCard(
+                        imageUrl: "celana.png", item: "Celana", count: _qty_4),
                   ],
                 ),
               )),
           Positioned(
             left: 30,
             top: 600,
-            right: 30,
+            right: 50,
             height: null,
             width: null,
             child: Column(
@@ -108,11 +160,7 @@ class Premium extends StatelessWidget {
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
-                    Text(
-                      "Rp. 100.000.00",
-                      style:
-                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                    ),
+                    _totalText(_total_bayar),
                   ],
                 )
               ],
@@ -171,25 +219,37 @@ class Premium extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.white),
-                        child: Text(
-                          " - ",
-                          style: TextStyle(fontSize: 28, letterSpacing: 3),
+                      InkWell(
+                        onTap: () {
+                          remove(item);
+                          total();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blue),
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white),
+                          child: Text(
+                            " - ",
+                            style: TextStyle(fontSize: 28, letterSpacing: 3),
+                          ),
                         ),
                       ),
-                      Text("$count"),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blue),
-                            borderRadius: BorderRadius.circular(100),
-                            color: Colors.white),
-                        child: Text(
-                          " + ",
-                          style: TextStyle(fontSize: 28, letterSpacing: 1),
+                      _quantityText(count),
+                      InkWell(
+                        onTap: () {
+                          add(item);
+                          total();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blue),
+                              borderRadius: BorderRadius.circular(100),
+                              color: Colors.white),
+                          child: Text(
+                            " + ",
+                            style: TextStyle(fontSize: 28, letterSpacing: 1),
+                          ),
                         ),
                       ),
                     ],
@@ -200,4 +260,17 @@ class Premium extends StatelessWidget {
           ),
         ));
   }
+}
+
+Widget _quantityText(int i) {
+  return Container(
+    child: Text(i.toString()),
+  );
+}
+
+Widget _totalText(int i) {
+  return Container(
+    child: Text("Rp. " + i.toString() + ",00",
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+  );
 }
