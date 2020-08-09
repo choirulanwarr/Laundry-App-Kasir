@@ -125,6 +125,30 @@ class MyCustomFormState extends State<MyCustomForm> {
 
   int _total_bayar = 0;
 
+  //Costume Dialog
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Sukses"),
+          content: new Text("Menyimpan Transaksi"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   //simpan data transaksi
   simpanTransaksi() async {
     final response = await http
@@ -227,8 +251,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                   if (_formKey.currentState.validate()) {
                     simpanTransaksi();
                     // If the form is valid, display a Snackbar.
-                    Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Menyimpan Transaksi....')));
+                    _showDialog();
                   }
                 },
                 child: Text(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:async';
 import 'dart:convert';
 
 class Premium extends StatefulWidget {
@@ -22,6 +21,29 @@ class _PremiumState extends State<Premium> {
   int _total_bayar = 0;
 
   final nama_pelanggan = TextEditingController();
+
+  void _showDialog() {
+    // flutter defined function
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return AlertDialog(
+          title: new Text("Sukses"),
+          content: new Text("Menyimpan Transaksi"),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   //ambil harga dari server
   ambilHarga() async {
@@ -51,7 +73,6 @@ class _PremiumState extends State<Premium> {
       "total_bayar": _total_bayar.toString()
     });
     var data = json.decode(response.body);
-    print(data);
     if (data['status'] == 'OK') {
       nama_pelanggan.clear();
     }
@@ -91,7 +112,6 @@ class _PremiumState extends State<Premium> {
           (_qty_2 * harga_kemeja) +
           (_qty_3 * harga_jaket) +
           (_qty_4 * harga_celana);
-      print(_total_bayar);
     });
   }
 
@@ -99,8 +119,7 @@ class _PremiumState extends State<Premium> {
   Widget build(BuildContext context) {
     ambilHarga();
     return Scaffold(
-        body: SingleChildScrollView(
-      child: Stack(
+      body: Stack(
         overflow: Overflow.visible,
         children: <Widget>[
           Container(
@@ -150,7 +169,7 @@ class _PremiumState extends State<Premium> {
                 ],
               )),
           Positioned(
-              top: 120,
+              top: 110,
               left: 20,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -170,7 +189,7 @@ class _PremiumState extends State<Premium> {
                 ],
               )),
           Positioned(
-              top: 150,
+              top: 120,
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: Padding(
@@ -191,7 +210,7 @@ class _PremiumState extends State<Premium> {
               )),
           Positioned(
             left: 30,
-            top: 600,
+            top: 560,
             right: 50,
             height: null,
             width: null,
@@ -235,8 +254,7 @@ class _PremiumState extends State<Premium> {
                     onPressed: () {
                       print(nama_pelanggan.text);
                       simpanTransaksi();
-                      Scaffold.of(context).showSnackBar(
-                          SnackBar(content: Text('Menyimpan Transaksi....')));
+                      _showDialog();
                     },
                     child: Text(
                       "Simpan Data Laundry",
@@ -255,7 +273,7 @@ class _PremiumState extends State<Premium> {
           ),
         ],
       ),
-    ));
+    );
   }
 
   _customCard({String imageUrl, String item, String price, int count}) {
