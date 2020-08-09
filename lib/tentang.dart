@@ -8,14 +8,27 @@ class Tentang extends StatelessWidget {
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 7 / 7,
+            height: MediaQuery.of(context).size.height * 7 / 4,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
-              ),
+              color: Colors.white,
             ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height / 1.45),
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(106),
+                  bottomRight: Radius.circular(106),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.cyan[900], Colors.cyan[400]],
+                ),
+                color: Colors.white),
           ),
           Positioned(
               left: 30,
@@ -72,6 +85,42 @@ class Tentang extends StatelessWidget {
                   ),
                 ],
               )),
+          Container(
+            margin: EdgeInsets.only(top: 210),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "Tentang Aplikasi",
+                  style: TextStyle(
+                      fontSize: 26,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 30),
+                Text("Pemograman Mobile Lanjut",
+                    style:
+                        TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                SizedBox(height: 15),
+                Container(
+                  margin: EdgeInsets.only(left: 40),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text("1. 5170411156, Milatul Ma'rifah",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700)),
+                      SizedBox(height: 10),
+                      Text("2. 5170411156, Mumahad Eman Sulaeman",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w700)),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          )
         ],
       ),
     );

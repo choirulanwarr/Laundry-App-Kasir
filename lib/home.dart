@@ -6,7 +6,6 @@ class Home extends StatelessWidget {
     return Scaffold(
       body: Stack(
         overflow: Overflow.visible,
-        fit: StackFit.loose,
         children: <Widget>[
           ClipPath(
             child: Container(

@@ -1,4 +1,47 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+Future<List<Trans>> getTrans() async {
+  try {
+    var map = Map<String, dynamic>();
+    final response = await http.post(
+        "http://192.168.0.101/flutter-laundry/data_transaksi.php",
+        body: map);
+    print('Response: ${response.body}');
+    if (200 == response.statusCode) {
+      List<Trans> list = parseResponse(response.body);
+      return list;
+    } else {
+      return List<Trans>();
+    }
+  } catch (e) {
+    return List<Trans>();
+  }
+}
+
+List<Trans> parseResponse(String responseBody) {
+  final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Trans>((json) => Trans.fromJson(json)).toList();
+}
+
+class Trans {
+  final String nama;
+  final String tgl;
+  final String tot;
+
+  Trans({this.nama, this.tgl, this.tot});
+
+  factory Trans.fromJson(Map<String, dynamic> json) {
+    return Trans(
+      nama: json['nama_pelanggan'] as String,
+      tgl: json['tgl_order'] as String,
+      tot: json['total_bayar'] as String,
+    );
+  }
+}
 
 class Transaksi extends StatefulWidget {
   @override
@@ -6,81 +49,70 @@ class Transaksi extends StatefulWidget {
 }
 
 class _TransaksiState extends State<Transaksi> {
-  List<Transaksi> _employees;
-  String _titleProgress;
+  List<Trans> _transaksi;
 
   @override
   void initState() {
     super.initState();
-    _employees = [];
-    _getEmployees();
+    _transaksi = [];
+    _getTransaksi();
   }
 
-  _showProgress(String message) {
-    setState(() {
-      _titleProgress = message;
-    });
-  }
-
-  _getEmployees() {
-    _showProgress('Loading Employees...');
-    Services.getEmployees().then((employees) {
+  _getTransaksi() {
+    getTrans().then((transaksi) {
       setState(() {
-        _employees = employees;
-      });
-      _showProgress(widget.title); // Reset the title...
-      print("Length ${employees.length}");
+        _transaksi = transaksi;
+      }); // Reset the title...
+      print("Length ${transaksi.length}");
     });
   }
 
-// Let's create a DataTable and show the employee list in it.
+  // Let's create a DataTable and show the employee list in it.
   SingleChildScrollView _dataBody() {
     // Both Vertical and Horozontal Scrollview for the DataTable to
     // scroll both Vertical and Horizontal...
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.vertical,
         child: DataTable(
           columns: [
             DataColumn(
-              label: Text('ID'),
+              label: Text(
+                'NAMA',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
             ),
             DataColumn(
-              label: Text('FIRST NAME'),
+              label: Text(
+                'TANGGAL',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
             ),
             DataColumn(
-              label: Text('LAST NAME'),
+              label: Text(
+                'TOTAL',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
             ),
-            // Lets add one more column to show a delete button
-            DataColumn(
-              label: Text('DELETE'),
-            )
           ],
-          rows: _employees
+          // the list should show the filtered list now
+          rows: _transaksi
               .map(
                 (employee) => DataRow(cells: [
                   DataCell(
-                    Text(employee.id),
-                    // Add tap in the row and populate the
-                    // textfields with the corresponding values to update
+                    Text(employee.nama),
                   ),
                   DataCell(
                     Text(
-                      employee.firstName.toUpperCase(),
+                      employee.tgl.toUpperCase(),
                     ),
                   ),
                   DataCell(
                     Text(
-                      employee.lastName.toUpperCase(),
+                      employee.tot.toUpperCase(),
                     ),
                   ),
-                  DataCell(IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      //_deleteEmployee(employee);
-                    },
-                  ))
                 ]),
               )
               .toList(),
@@ -96,14 +128,27 @@ class _TransaksiState extends State<Transaksi> {
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.height * 7 / 7,
+            height: MediaQuery.of(context).size.height * 7 / 4,
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
-              ),
+              color: Colors.white,
             ),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height / 1.45),
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(106),
+                  bottomRight: Radius.circular(106),
+                ),
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Colors.cyan[900], Colors.cyan[400]],
+                ),
+                color: Colors.white),
           ),
           Positioned(
               left: 30,
@@ -160,6 +205,26 @@ class _TransaksiState extends State<Transaksi> {
                   ),
                 ],
               )),
+          Positioned(
+              top: 250,
+              width: MediaQuery.of(context).size.width,
+              child: _dataBody()),
+          Container(
+            margin: EdgeInsets.only(top: 210),
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: <Widget>[
+                Text(
+                  "Data Transaksi Laundry",
+                  style: TextStyle(
+                      fontSize: 26,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
