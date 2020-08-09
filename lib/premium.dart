@@ -235,6 +235,8 @@ class _PremiumState extends State<Premium> {
                     onPressed: () {
                       print(nama_pelanggan.text);
                       simpanTransaksi();
+                      Scaffold.of(context).showSnackBar(
+                          SnackBar(content: Text('Menyimpan Transaksi....')));
                     },
                     child: Text(
                       "Simpan Data Laundry",

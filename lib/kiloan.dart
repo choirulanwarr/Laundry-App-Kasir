@@ -225,10 +225,10 @@ class MyCustomFormState extends State<MyCustomForm> {
                   // Validate returns true if the form is valid, or false
                   // otherwise.
                   if (_formKey.currentState.validate()) {
+                    simpanTransaksi();
                     // If the form is valid, display a Snackbar.
                     Scaffold.of(context).showSnackBar(
                         SnackBar(content: Text('Menyimpan Transaksi....')));
-                    simpanTransaksi();
                   }
                 },
                 child: Text(
