@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class Premium extends StatefulWidget {
   @override
@@ -6,11 +9,53 @@ class Premium extends StatefulWidget {
 }
 
 class _PremiumState extends State<Premium> {
-  int _qty_1 = 0;
-  int _qty_2 = 0;
-  int _qty_3 = 0;
-  int _qty_4 = 0;
+  int _qty_1 = 0; // Kaos
+  int _qty_2 = 0; // Kemeja
+  int _qty_3 = 0; //Jaket
+  int _qty_4 = 0; //Celana
+
+  int harga_kaos = 0;
+  int harga_kemeja = 0;
+  int harga_jaket = 0;
+  int harga_celana = 0;
+
   int _total_bayar = 0;
+
+  final nama_pelanggan = TextEditingController();
+
+  //ambil harga dari server
+  ambilHarga() async {
+    final response = await http
+        .get('http://192.168.0.101/flutter-laundry/get_harga_premium.php');
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      data.forEach((result) {
+        if (result['nama'] == "Kaos") {
+          harga_kaos = int.parse(result['harga']);
+        } else if (result['nama'] == "Kemeja") {
+          harga_kemeja = int.parse(result['harga']);
+        } else if (result['nama'] == "Jaket") {
+          harga_jaket = int.parse(result['harga']);
+        } else if (result['nama'] == "Celana") {
+          harga_celana = int.parse(result['harga']);
+        }
+      });
+    }
+  }
+
+  //simpan data transaksi
+  simpanTransaksi() async {
+    final response = await http
+        .post("http://192.168.0.101/flutter-laundry/add_transaksi.php", body: {
+      "nama_pelanggan": nama_pelanggan.text,
+      "total_bayar": _total_bayar.toString()
+    });
+    var data = json.decode(response.body);
+    print(data);
+    if (data['status'] == 'OK') {
+      nama_pelanggan.clear();
+    }
+  }
 
   void add(String item) {
     setState(() {
@@ -42,14 +87,17 @@ class _PremiumState extends State<Premium> {
 
   void total() {
     setState(() {
-      _total_bayar =
-          (_qty_1 * 2000) + (_qty_2 * 2000) + (_qty_3 * 2000) + (_qty_4 * 2000);
+      _total_bayar = (_qty_1 * harga_kaos) +
+          (_qty_2 * harga_kemeja) +
+          (_qty_3 * harga_jaket) +
+          (_qty_4 * harga_celana);
       print(_total_bayar);
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    ambilHarga();
     return Scaffold(
         body: SingleChildScrollView(
       child: Stack(
@@ -62,7 +110,7 @@ class _PremiumState extends State<Premium> {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
+                colors: [Colors.cyan[800], Colors.cyan[400]],
               ),
             ),
           ),
@@ -165,6 +213,7 @@ class _PremiumState extends State<Premium> {
                 SizedBox(height: 20),
                 TextFormField(
                   textAlign: TextAlign.center,
+                  controller: nama_pelanggan,
                   decoration: new InputDecoration(
                       border: new OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
@@ -183,11 +232,14 @@ class _PremiumState extends State<Premium> {
                   width: double.infinity,
                   padding: EdgeInsets.all(10.0),
                   child: FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(nama_pelanggan.text);
+                      simpanTransaksi();
+                    },
                     child: Text(
                       "Simpan Data Laundry",
                       style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 22),
                     ),

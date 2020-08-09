@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Kiloan extends StatelessWidget {
   @override
@@ -14,7 +16,7 @@ class Kiloan extends StatelessWidget {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xff40dedf), Color(0xff0fb2ea)],
+                colors: [Colors.cyan[800], Colors.cyan[400]],
               ),
             ),
           ),
@@ -117,6 +119,28 @@ class MyCustomFormState extends State<MyCustomForm> {
   // not a GlobalKey<MyCustomFormState>.
   final _formKey = GlobalKey<FormState>();
 
+  final nama_pelanggan = TextEditingController();
+  final berat_pakaian = TextEditingController();
+  final total_bayar = TextEditingController();
+
+  int _total_bayar = 0;
+
+  //simpan data transaksi
+  simpanTransaksi() async {
+    final response = await http
+        .post("http://192.168.0.101/flutter-laundry/add_transaksi.php", body: {
+      "nama_pelanggan": nama_pelanggan.text,
+      "total_bayar": _total_bayar.toString()
+    });
+    var data = json.decode(response.body);
+    print(data);
+    if (data['status'] == 'OK') {
+      nama_pelanggan.clear();
+      berat_pakaian.clear();
+      total_bayar.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // Build a Form widget using the _formKey created above.
@@ -142,6 +166,7 @@ class MyCustomFormState extends State<MyCustomForm> {
               }
               return null;
             },
+            controller: nama_pelanggan,
           ),
           SizedBox(
             height: 20,
@@ -164,6 +189,11 @@ class MyCustomFormState extends State<MyCustomForm> {
               }
               return null;
             },
+            controller: berat_pakaian,
+            onEditingComplete: () {
+              _total_bayar = 1500 * int.parse(berat_pakaian.text);
+              total_bayar.text = "Rp. " + (_total_bayar).toString();
+            },
           ),
           SizedBox(
             height: 20,
@@ -179,6 +209,7 @@ class MyCustomFormState extends State<MyCustomForm> {
                 hintStyle: new TextStyle(color: Colors.grey[800]),
                 hintText: "Rp. 0",
                 fillColor: Colors.white70),
+            controller: total_bayar,
           ),
           SizedBox(
             height: 20,
@@ -196,7 +227,8 @@ class MyCustomFormState extends State<MyCustomForm> {
                   if (_formKey.currentState.validate()) {
                     // If the form is valid, display a Snackbar.
                     Scaffold.of(context).showSnackBar(
-                        SnackBar(content: Text('Processing Data')));
+                        SnackBar(content: Text('Menyimpan Transaksi....')));
+                    simpanTransaksi();
                   }
                 },
                 child: Text(
