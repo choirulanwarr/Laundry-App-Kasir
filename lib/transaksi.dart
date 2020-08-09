@@ -10,7 +10,6 @@ Future<List<Trans>> getTrans() async {
     final response = await http.post(
         "http://192.168.0.101/flutter-laundry/data_transaksi.php",
         body: map);
-    print('Response: ${response.body}');
     if (200 == response.statusCode) {
       List<Trans> list = parseResponse(response.body);
       return list;
