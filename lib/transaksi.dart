@@ -80,19 +80,19 @@ class _TransaksiState extends State<Transaksi> {
             DataColumn(
               label: Text(
                 'NAMA',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               ),
             ),
             DataColumn(
               label: Text(
                 'TANGGAL',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               ),
             ),
             DataColumn(
               label: Text(
                 'TOTAL',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               ),
             ),
           ],
@@ -101,17 +101,18 @@ class _TransaksiState extends State<Transaksi> {
               .map(
                 (employee) => DataRow(cells: [
                   DataCell(
-                    Text(employee.nama),
-                  ),
-                  DataCell(
                     Text(
-                      employee.tgl.toUpperCase(),
+                      employee.nama.toUpperCase(),
+                      style: TextStyle(fontSize: 14),
                     ),
                   ),
                   DataCell(
-                    Text(
-                      employee.tot.toUpperCase(),
-                    ),
+                    Text(employee.tgl.toUpperCase(),
+                        style: TextStyle(fontSize: 14)),
+                  ),
+                  DataCell(
+                    Text(employee.tot.toUpperCase(),
+                        style: TextStyle(fontSize: 14)),
                   ),
                 ]),
               )
@@ -205,10 +206,6 @@ class _TransaksiState extends State<Transaksi> {
                   ),
                 ],
               )),
-          Positioned(
-              top: 250,
-              width: MediaQuery.of(context).size.width,
-              child: _dataBody()),
           Container(
             margin: EdgeInsets.only(top: 210),
             width: MediaQuery.of(context).size.width,
@@ -224,7 +221,13 @@ class _TransaksiState extends State<Transaksi> {
                 ),
               ],
             ),
-          )
+          ),
+          Expanded(
+              child: Container(
+            padding: EdgeInsets.all(15),
+            margin: EdgeInsets.only(top: 250),
+            child: _dataBody(),
+          ))
         ],
       ),
     );

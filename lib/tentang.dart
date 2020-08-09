@@ -108,7 +108,7 @@ class Tentang extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Text("1. 5170411156, Milatul Ma'rifah",
+                      Text("1. 5170411158, Milatul Ma'rifah",
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.w700)),
                       SizedBox(height: 10),
