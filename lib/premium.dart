@@ -164,7 +164,7 @@ class _PremiumState extends State<Premium> {
                     ),
                   ),
                   Text(
-                    "Kembali",
+                    "KEMBALI",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ],
